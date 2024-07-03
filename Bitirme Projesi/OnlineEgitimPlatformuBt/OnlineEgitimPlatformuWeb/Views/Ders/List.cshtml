@@ -1,0 +1,140 @@
+﻿@model Core.ListModels.DersAndDerslerAndKategori
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var session = HttpContextAccessor.HttpContext.Session;
+    ViewData["Title"] = "List";
+    var kursOgretmeniMi = bool.Parse(@session.GetString("KursOgretmeniMi"));
+    var role = @session.GetString("UserRole");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <link href="~/eshopper/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/eshopper/css/price-range.css" rel="stylesheet">
+    <link href="~/eshopper/css/animate.css" rel="stylesheet">
+    <link href="~/eshopper/css/main.css" rel="stylesheet">
+    <link href="~/eshopper/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="~/eshopper/js/html5shiv.js"></script>
+    <script src="~/eshopper/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="~/eshopper/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/eshopper/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/eshopper/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/eshopper/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/eshopper/images/ico/apple-touch-icon-57-precomposed.png">
+</head>
+<body>
+    <header id="header">
+        <!--header-->
+        @await Html.PartialAsync("_UstBar")
+        @await Html.PartialAsync("_MenuBar")
+        @await Html.PartialAsync("_ButonBar")
+    </header><!--/header-->
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="row">
+
+                @if (TempData["SuccessDersMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["SuccessDersMessage"]
+                    </div>
+                }
+                @if (TempData["ErrorDersMessage"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["ErrorDersMessage"]
+                    </div>
+                }
+                <div class="text-right">
+                    @if (role == "Admin" || kursOgretmeniMi)
+                    {
+                        <a class="btn btn-outline-primary" asp-controller="Ders" asp-action="Create" asp-route-id="@Model.Bolum.Id">Ders Ekle</a>
+                    }
+
+                    <a class="btn btn-outline-primary" asp-controller="Bolum" asp-action="List" asp-route-id="@Model.Bolum.KursId">Geri Git</a>
+                </div>
+                <div class="col-md-7">
+                    <div class="row">
+                        @if (Model.ders != null)
+                        {
+                            <div class="col-md-12">
+                                <video controls class="w-100">
+                                    <source src="/VideosAndImages/Video/@Model.ders.VideoUrl" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <div class="features_items">
+                                    <h4 class="title text-center"> Açıklaması</h4>
+                                    <h4 class="title text-center"> </h4>
+                                    <h4 class="title text-center"> </h4>
+                                    <p>@Model.ders.Icerik</p>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="features_items">
+                        <h3 class="title text-center">Dersler</h3>
+                        <table class="table table-striped">
+                            <tr>
+                                <th scope="col">Ders SıraNo</th>
+                                <th scope="col">Ders Baslik</th>
+                                <th scope="col"></th>
+                                @if (role == "Admin" || kursOgretmeniMi)
+                                {
+                                    <th scope="col">Sil</th>
+                                    <th scope="col">Güncelle</th>
+                                }
+                            </tr>
+                            <tbody>
+                                @foreach (var item in Model.dersler)
+                                {
+                                    <tr>
+                                        <td>@item.SıraNo</td>
+                                        <td>@item.Baslik</td>
+                                        <td>
+                                            <a class="btn btn-outline-primary" asp-controller="Ders" asp-action="List" asp-route-bolumId="@item.BolumId" asp-route-dersId="@item.Id">Dersi İzle</a>
+                                        </td>
+                                        @if (role == "Admin" || kursOgretmeniMi)
+                                        {
+                                            <td>
+                                                <a class="btn btn-outline-primary" asp-controller="Ders" asp-action="Delete" asp-route-id="@item.Id" onclick="sildenOnceSor(event)">Sil</a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-outline-primary" asp-controller="Ders" asp-action="Update" asp-route-id="@item.Id">Güncelle</a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+    @await Html.PartialAsync("_AltBar")
+    <script src="~/js/SilOnay.js"></script>
+    <script src="~/eshopper/js/jquery.js"></script>
+    <script src="~/eshopper/js/bootstrap.min.js"></script>
+    <script src="~/eshopper/js/jquery.scrollUp.min.js"></script>
+    <script src="~/eshopper/js/price-range.js"></script>
+    <script src="~/eshopper/js/jquery.prettyPhoto.js"></script>
+    <script src="~/eshopper/js/main.js"></script>
+</body>
+</html>

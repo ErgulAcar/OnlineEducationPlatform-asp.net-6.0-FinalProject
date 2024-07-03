@@ -1,0 +1,156 @@
+﻿@model Core.ListModels.FileKursAndKategori
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var session = HttpContextAccessor.HttpContext.Session;
+    ViewData["Title"] = "Create";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <link href="~/eshopper/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/eshopper/css/price-range.css" rel="stylesheet">
+    <link href="~/eshopper/css/animate.css" rel="stylesheet">
+    <link href="~/eshopper/css/main.css" rel="stylesheet">
+    <link href="~/eshopper/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="~/eshopper/js/html5shiv.js"></script>
+    <script src="~/eshopper/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="~/eshopper/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/eshopper/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/eshopper/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/eshopper/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/eshopper/images/ico/apple-touch-icon-57-precomposed.png">
+</head>
+<body>
+    <header id="header">
+        <!--header-->
+        @await Html.PartialAsync("_UstBar")
+        @await Html.PartialAsync("_MenuBar")
+
+    </header><!--/header-->
+
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Yeni Kurs Oluştur</h1>
+                    </div>
+                    <div class="card-body">
+                        <form asp-controller="Kurs" asp-action="Create" method="post" enctype="multipart/form-data" onsubmit="onaydanOnceSor(event)">
+                            
+                            <div class="row mb-3">
+                                <label for="Baslik" class="col-md-4 col-form-label">Başlık</label>
+                                <div class="col-md-8">
+                                    <input required asp-for="@Model.FileKursDTO.Baslik" class="form-control">
+                                    <span class="text-danger" asp-validation-for="@Model.FileKursDTO.Baslik"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="Aciklama" class="col-md-4 col-form-label">Açıklama</label>
+                                <div class="col-md-8">
+                                    <textarea required asp-for="@Model.FileKursDTO.Aciklama" class="form-control"></textarea>
+                                    <span class="text-danger" asp-validation-for="@Model.FileKursDTO.Aciklama"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="ResimUrl" class="col-md-4 col-form-label">Resim</label>
+                                <div class="col-md-8">
+                                    <input type="file" asp-for="FileKursDTO.ResimUrl" class="form-control" accept=".jfif,.jpg,.jpeg,.webp">
+                                    <span class="text-danger" asp-validation-for="FileKursDTO.ResimUrl"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <label for="YayinlanmaTarihi" class="col-md-4 col-form-label">Yayınlanma Tarihi</label>
+                                <div class="col-md-8">
+                                    <input readonly asp-for="@Model.FileKursDTO.YayinlanmaTarihi" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")">
+                                    <span class="text-danger" asp-validation-for="@Model.FileKursDTO.YayinlanmaTarihi"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <label for="HocaAd" class="col-md-4 col-form-label">Hoca Adı</label>
+                                <div class="col-md-8">
+                                    <input readonly asp-for="@Model.FileKursDTO.HocaAd" class="form-control" value="@session.GetString("UserAd")">
+                                    <span class="text-danger" asp-validation-for="@Model.FileKursDTO.HocaAd"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="HocaSoyad" class="col-md-4 col-form-label">Hoca Soyadı</label>
+                                <div class="col-md-8">
+                                    <input readonly asp-for="@Model.FileKursDTO.HocaSoyad" class="form-control" value="@session.GetString("UserSoyad")">
+                                    <span class="text-danger" asp-validation-for="@Model.FileKursDTO.HocaSoyad"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="Mail" class="col-md-4 col-form-label">Mail</label>
+                                <div class="col-md-8">
+                                    <input readonly asp-for="@Model.FileKursDTO.Mail" class="form-control" value="@session.GetString("UserMail")">
+                                    <span class="text-danger" asp-validation-for="@Model.FileKursDTO.Mail"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="Fiyat" class="col-md-4 col-form-label">Fiyat</label>
+                                <div class="col-md-8">
+                                    <input required asp-for="@Model.FileKursDTO.Fiyat" class="form-control">
+                                    <span class="text-danger" asp-validation-for="@Model.FileKursDTO.Fiyat"></span>
+                                </div>
+                            </div>
+                            
+
+                            <div class="row mb-3">
+                                <label for="KategoriId" class="col-md-4 col-form-label">Kategori</label>
+                                <div class="col-md-8">
+
+                                    <select asp-for="@Model.FileKursDTO.KategoriAd">
+                                        <option >Kategori seçiniz...</option>
+                                        @foreach (var item in Model.kategoriler)
+                                        {
+                                            <option value="@item.Ad">@item.Ad</option>
+                                        }
+                                   
+                                  
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-8 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_AltBar")
+    <script src="~/js/OnOnay.js"></script>
+    <script src="~/eshopper/js/jquery.js"></script>
+    <script src="~/eshopper/js/bootstrap.min.js"></script>
+    <script src="~/eshopper/js/jquery.scrollUp.min.js"></script>
+    <script src="~/eshopper/js/price-range.js"></script>
+    <script src="~/eshopper/js/jquery.prettyPhoto.js"></script>
+    <script src="~/eshopper/js/main.js"></script>
+</body>
+</html>

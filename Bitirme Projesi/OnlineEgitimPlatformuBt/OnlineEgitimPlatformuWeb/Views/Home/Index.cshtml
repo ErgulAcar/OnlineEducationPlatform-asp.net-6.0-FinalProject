@@ -1,0 +1,126 @@
+﻿@model Core.ListModels.KategoriAndTopKurs
+@{
+    ViewData["Title"] = "Home Page";
+    var session = HttpContextAccessor.HttpContext.Session;
+}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <link href="~/eshopper/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/eshopper/css/price-range.css" rel="stylesheet">
+    <link href="~/eshopper/css/animate.css" rel="stylesheet">
+    <link href="~/eshopper/css/main.css" rel="stylesheet">
+    <link href="~/eshopper/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="~/eshopper/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/eshopper/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/eshopper/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/eshopper/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/eshopper/images/ico/apple-touch-icon-57-precomposed.png">
+    <style>
+    .productinfo img {
+        width: 260px;
+        height: 150px;
+        object-fit: cover;
+    }
+</style>
+</head><!--/head-->
+
+<body>
+    <header id="header">
+        <!--header-->
+        @await Html.PartialAsync("_UstBar")
+        @await Html.PartialAsync("_MenuBar")
+        @await Html.PartialAsync("_ButonBar")
+        
+    </header><!--/header-->
+
+    <section id="slider">
+        <!--slider-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+
+                        <div class="carousel-inner">
+                            <div class="col-sm-6">
+                                <img src="~/eshopper/images/oepimage/girisekranıbaslangıcımage.jpg" />
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section><!--/slider-->
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="left-sidebar">
+                    </div>
+                </div>
+                
+
+                <div class="col-sm-12 padding-right">
+                    <div class="features_items">
+                        <!--features_items-->
+                        <h2 class="title text-center">Öne Çıkan Kurslar</h2>
+
+                        @foreach (var item in Model.kurslar)
+                        {
+                            <div class="col-sm-3">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="/VideosAndImages/Images/@item.ResimUrl" />
+                                            <h3>@item.Baslik</h3>
+                                            <p2>@item.HocaAd</p2>
+                                            <p2>@item.HocaSoyad</p2>
+                                            <p>@item.Puan</p>
+                                            <p>@item.Fiyat</p>
+                                            <a asp-route-Id="@item.Id" asp-action="getKursByDetail" asp-controller="Kurs" class="btn btn-default add-to-cart">İncele</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h3>@item.Baslik</h3>
+                                                <p2>@item.HocaAd</p2>
+                                                <p2>@item.HocaSoyad</p2>
+                                                <p>@item.Puan</p>
+                                                <p>@item.Fiyat</p>
+                                                <a asp-route-Id="@item.Id" asp-action="getKursByDetail" asp-controller="Kurs" class="btn btn-default add-to-cart">İncele</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                    </div><!--features_items-->
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    @await Html.PartialAsync("_AltBar")
+    <script src="~/eshopper/js/jquery.js"></script>
+    <script src="~/eshopper/js/bootstrap.min.js"></script>
+    <script src="~/eshopper/js/jquery.scrollUp.min.js"></script>
+    <script src="~/eshopper/js/price-range.js"></script>
+    <script src="~/eshopper/js/jquery.prettyPhoto.js"></script>
+    <script src="~/eshopper/js/main.js"></script>
+</body>

@@ -1,0 +1,76 @@
+﻿@model Core.ListModels.KategoriAndTopKurs
+@{
+    ViewData["Title"] = "Hakimizda";
+}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <link href="~/eshopper/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/eshopper/css/price-range.css" rel="stylesheet">
+    <link href="~/eshopper/css/animate.css" rel="stylesheet">
+    <link href="~/eshopper/css/main.css" rel="stylesheet">
+    <link href="~/eshopper/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="~/eshopper/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/eshopper/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/eshopper/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/eshopper/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/eshopper/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+    <header id="header">
+        <!--header-->
+        @await Html.PartialAsync("_UstBar")
+        @await Html.PartialAsync("_MenuBar")
+        @await Html.PartialAsync("_ButonBar")
+
+
+    </header><!--/header-->
+    <div id="contact-page" class="container">
+        <div class="bg">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="title text-center">Hakımızda </h2>
+                    <div id="gmap" class="contact-map">
+                        <p class="lead">
+                            Site, çevrimiçi eğitim platformu olarak 2024 yılında kurulmuştur. Amacımız, kullanıcılara çeşitli konularda videolar aracılığıyla eğitim sunmaktır.
+                            Misyonumuz, kullanıcıların kendilerini geliştirmelerine, yeni beceriler öğrenmelerine ve ilgi alanlarını keşfetmelerine olanak tanımaktır.
+                            Ekibimiz, uzman öğretmenler ve eğitmenlerden oluşmaktadır, ve her biri kendi alanında deneyimlidir ve en iyi eğitimi sunmayı hedeflemektedir.
+                        </p>
+                        <p class="lead">
+                            Hizmetlerimiz arasında geniş bir konu yelpazesi bulunmaktadır, bu da kullanıcıların ilgi alanlarına uygun eğitimler bulmalarını sağlar.
+                            Platformumuz, kullanıcıların istedikleri zaman istedikleri yerden erişebilecekleri çevrimiçi bir öğrenme ortamı sunar.
+                            Ayrıca, interaktif materyaller ve öğrenme araçlarıyla desteklenen zengin bir eğitim deneyimi sağlamak için sürekli olarak çalışıyoruz.
+                        </p>
+                        <p class="lead">
+                            Müşteri memnuniyeti ve kaliteli eğitim bizim önceliğimizdir.
+                            Kullanıcı geri bildirimlerini dikkate alıyor ve platformumuzu sürekli olarak iyileştirmek için çaba sarf ediyoruz.
+                            Eğer herhangi bir sorunuz veya geri bildiriminiz varsa, bizimle iletişime geçmekten çekinmeyin.
+                            Uzman eğitmenlerimiz ve destek ekibimiz size yardımcı olmaktan memnuniyet duyacaktır.
+                        </p>
+                        <p class="lead">Bizimle birlikte öğrenme yolculuğuna çıkın ve potansiyelinizi keşfedin!</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div><!--/#contact-page-->
+    @await Html.PartialAsync("_AltBar")
+
+    <script src="~/eshopper/js/jquery.js"></script>
+    <script src="~/eshopper/js/bootstrap.min.js"></script>
+    <script src="~/eshopper/js/jquery.scrollUp.min.js"></script>
+    <script src="~/eshopper/js/price-range.js"></script>
+    <script src="~/eshopper/js/jquery.prettyPhoto.js"></script>
+    <script src="~/eshopper/js/main.js"></script>
+</body>

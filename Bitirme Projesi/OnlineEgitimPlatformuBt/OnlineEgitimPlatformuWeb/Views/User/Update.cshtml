@@ -1,0 +1,120 @@
+﻿@model Core.ListModels.UserAndRoleList
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var session = HttpContextAccessor.HttpContext.Session;
+    ViewData["Title"] = "Update";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <link href="~/eshopper/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/eshopper/css/price-range.css" rel="stylesheet">
+    <link href="~/eshopper/css/animate.css" rel="stylesheet">
+    <link href="~/eshopper/css/main.css" rel="stylesheet">
+    <link href="~/eshopper/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="~/eshopper/js/html5shiv.js"></script>
+    <script src="~/eshopper/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="~/eshopper/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/eshopper/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/eshopper/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/eshopper/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/eshopper/images/ico/apple-touch-icon-57-precomposed.png">
+</head>
+<body>
+    <header id="header">
+        <!--header-->
+        @await Html.PartialAsync("_UstBar")
+        @await Html.PartialAsync("_MenuBar")
+
+    </header><!--/header-->
+
+    <div class="row">
+        <div class="col-sm-10 text-right">
+            <a asp-action="List" asp-controller="User" class="btn btn-secondary me-2">Geriye Git</a>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">User Güncelle</h1>
+                    </div>
+                    <div class="card-body">
+                        <form asp-controller="User" asp-action="Update" method="post" enctype="multipart/form-data" onsubmit="onaydanOnceSor(event)">
+                            <input type="hidden" asp-for="@Model.user.Id" />
+                            
+
+                            <div class="row mb-3">
+                                <label for="Ad" class="col-md-4 col-form-label">Ad</label>
+                                <div class="col-md-8">
+                                    <input required asp-for="@Model.user.Ad" class="form-control">
+                                    <span class="text-danger" asp-validation-for="@Model.user.Ad"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="Soyad" class="col-md-4 col-form-label">Soyad</label>
+                                <div class="col-md-8">
+                                    <input required asp-for="@Model.user.Soyad" class="form-control">
+                                    <span class="text-danger" asp-validation-for="@Model.user.Soyad"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="Mail" class="col-md-4 col-form-label">Mail</label>
+                                <div class="col-md-8">
+                                    <input required asp-for="@Model.user.Mail" class="form-control">
+                                    <span class="text-danger" asp-validation-for="@Model.user.Mail"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="Sifre" class="col-md-4 col-form-label">Sifre</label>
+                                <div class="col-md-8">
+                                    <input required asp-for="@Model.user.Sifre" class="form-control">
+                                    <span class="text-danger" asp-validation-for="@Model.user.Sifre"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="RolAd" class="col-md-4 col-form-label">Rol</label>
+                                <div class="col-md-8">
+                                    <select asp-for="@Model.user.RolAd" class="form-control">
+                                        @foreach (var rol in Model.roller)
+                                        {
+                                            <option value="@rol.Ad">@rol.Ad</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-8 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_AltBar")
+    <script src="~/js/OnOnay.js"></script>
+    <script src="~/eshopper/js/jquery.js"></script>
+    <script src="~/eshopper/js/bootstrap.min.js"></script>
+    <script src="~/eshopper/js/jquery.scrollUp.min.js"></script>
+    <script src="~/eshopper/js/price-range.js"></script>
+    <script src="~/eshopper/js/jquery.prettyPhoto.js"></script>
+    <script src="~/eshopper/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+﻿@{
+    var session = HttpContextAccessor.HttpContext.Session;
+}
+<style>
+    /* Dropdown menünün genişliğini ve içindeki yazıların boyutunu artırır */
+    .custom-dropdown-menu {
+        min-width: 250px; /* Genişliği artırma  */
+        padding: 10px; /* İç boşluğu artırma */
+        color:grey;
+        background-color: lightsteelblue;
+    }
+
+        .custom-dropdown-menu .dropdown-item {
+            font-size: 16px; /* Yazı boyutunu artır */
+            margin-bottom: 10px; /* Öğeler arasına boşluk ekle */
+        }
+
+            .custom-dropdown-menu .dropdown-item strong {
+                display: block; /* Strong elemanları blok olarak göster */
+                margin-bottom: 5px; /* Strong ile diğer içerik arasına boşluk ekle */
+            }
+
+    .custom-button {
+        font-size: 16px; /* Yazı boyutunu artır */
+        padding: 10px 20px; /* Düğmenin iç boşluklarını artır */
+        border-width: 2px; /* Kenarlık kalınlığını artır */
+        border-radius: 5px; /* Köşeleri yuvarlat */
+        background-color: grey;
+
+    }
+
+        .custom-button:hover {
+            background-color:grey; /* Hover sırasında arka plan rengini değiştir */
+            border-color: grey; /* Hover sırasında kenarlık rengini değiştir */
+        }
+
+</style>
+<div class="header-middle">
+    <!--header-middle-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="logo pull-left">
+                    <a asp-controller="Home" asp-action="Index"><h3>Online Eğitim Platformu</h3></a>
+                </div>
+            </div>
+
+            <div class="col-sm-8">
+                <div class="mainmenu pull-right">
+                    <ul class="nav navbar-nav collapse navbar-collapse">
+                        @* <li class="nav-item"> *@
+                        @if (session.GetString("UserId") == null)
+                        {
+                            <li>
+                                <a asp-action="List" asp-controller="Sepet">
+                                    <i class="fa fa-shopping-cart"></i> Sepet
+                                </a>
+                            </li>
+                            <li><a asp-controller="Home" asp-action="LoginAndCreate"> Giriş Yap</a></li>
+
+                        }
+                        else if (session.GetString("UserRole") == "Admin" || session.GetString("UserRole") == "Ogretmen")
+                        {
+                            if (session.GetString("UserRole") == "Admin")
+                            {
+                                @await Html.PartialAsync("_AdminMenu")
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Kurs" asp-action="Create">Kurs Oluştur</a>
+
+                                </li>
+                            }
+
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bilgilerim</a>
+                                <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="navbarDropdownAccount" id="accountDropdown">
+
+                                    <div class="dropdown-item">
+                                        <strong>Ad:</strong> @session.GetString("UserAd")
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <strong>Soyad:</strong> @session.GetString("UserSoyad")
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <strong>Mail:</strong> @session.GetString("UserMail")
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <strong>
+                                            <a type="button" class="btn btn-outline-grey" asp-route-id="@session.GetString("UserId")" asp-action="UserUpdate" asp-controller="User">Güncelle</a>
+
+                                            <a type="button" class="btn btn-outline-grey" asp-action="Kurslarim" asp-controller="User">Kurslarim</a>
+                                        </strong>
+                                    </div>
+
+                                    <div class="dropdown-item">
+                                        <strong>
+                                            <a type="button" class="btn btn-outline-grey" asp-route-id="@session.GetString("UserId")" asp-action="OgrenimIceriklerim" asp-controller="User">Öğrenim İçeriklerim</a>
+                                        </strong>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <li>
+                                <a asp-action="List" asp-controller="Sepet">
+                                    <i class="fa fa-shopping-cart"></i> Sepet
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Logout" onclick="sildenOnceSor(event)">Çıkış Yap</a>
+
+                            </li>
+
+                        }
+                        
+                        else if (session.GetString("UserRole") == "member")
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bilgilerim</a>
+                                <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="navbarDropdownAccount" id="accountDropdown">
+
+                                    <div class="dropdown-item">
+                                        <strong>Ad:</strong> @session.GetString("UserAd")
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <strong>Soyad:</strong> @session.GetString("UserSoyad")
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <strong>Mail:</strong> @session.GetString("UserMail")
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <strong>
+                                            <a type="button" class="btn btn-outline-grey" asp-route-id="@session.GetString("UserId")" asp-action="UserUpdate" asp-controller="User">Güncelle</a>
+
+                                            <a type="button" class="btn btn-outline-grey" asp-route-id="@session.GetString("UserId")" asp-action="OgrenimIceriklerim" asp-controller="User">Öğrenim İçeriklerim</a>
+                                        </strong>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a asp-action="List" asp-controller="Sepet">
+                                    <i class="fa fa-shopping-cart"></i> Sepet
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Logout" onclick="sildenOnceSor(event)">Çıkış Yap</a>
+
+                            </li>
+
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div><!--/header-middle-->
+<script src="~/js/SilOnay.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+

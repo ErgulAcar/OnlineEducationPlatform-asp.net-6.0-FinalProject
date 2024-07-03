@@ -1,0 +1,103 @@
+﻿@model Core.ListModels.KategoriAndUserDTO
+@{
+    var session = HttpContextAccessor.HttpContext.Session;
+    ViewData["Title"] = "UserUpdate";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Login | E-Shopper</title>
+    <link href="~/eshopper/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/eshopper/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/eshopper/css/price-range.css" rel="stylesheet">
+    <link href="~/eshopper/css/animate.css" rel="stylesheet">
+    <link href="~/eshopper/css/main.css" rel="stylesheet">
+    <link href="~/eshopper/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="~/eshopper/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/eshopper/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/eshopper/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/eshopper/images/ico/apple-touch-icon-72-precomposed.png">
+
+</head><!--/head-->
+
+<body>
+    <header id="header">
+        <!--header-->
+        @await Html.PartialAsync("_UstBar")
+        @await Html.PartialAsync("_MenuBar")
+        @await Html.PartialAsync("_ButonBar")
+    </header><!--/header-->
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="title text-center">Bilgilerimi Güncelle</h1>
+                    </div>
+                    <div class="card-body">
+                        <form asp-controller="User" asp-action="UserUpdate" method="post" enctype="multipart/form-data" onsubmit="onaydanOnceSor(event)">
+                            <input type="hidden" asp-for="@Model.userDTO.Id" />
+
+
+                            <div class="row mb-3">
+                                <label for="Ad" class="col-md-4 col-form-label">Ad</label>
+                                <div class="col-md-8">
+                                    <input required asp-for="@Model.userDTO.Ad" class="form-control">
+                                    <span class="text-danger" asp-validation-for="@Model.userDTO.Ad"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="Soyad" class="col-md-4 col-form-label">Soyad</label>
+                                <div class="col-md-8">
+                                    <input required asp-for="@Model.userDTO.Soyad" class="form-control">
+                                    <span class="text-danger" asp-validation-for="@Model.userDTO.Soyad"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="Mail" class="col-md-4 col-form-label">Mail</label>
+                                <div class="col-md-8">
+                                    <input readonly asp-for="@Model.userDTO.Mail" class="form-control" value="@session.GetString("UserMail")">
+                                    <span class="text-danger" asp-validation-for="@Model.userDTO.Mail"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="Sifre" class="col-md-4 col-form-label">Sifre</label>
+                                <div class="col-md-8">
+                                    <input required asp-for="@Model.userDTO.Sifre" class="form-control">
+                                    <span class="text-danger" asp-validation-for="@Model.userDTO.Sifre"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <div class="col-md-8 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("_AltBar")
+    <script src="js/jquery.js"></script>
+    <script src="js/price-range.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/main.js"></script>
+    
+
+</body>
